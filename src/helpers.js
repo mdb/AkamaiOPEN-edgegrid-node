@@ -10,6 +10,12 @@ module.exports = {
     return encrypt.digest('base64');
   },
 
+  base64Sha256: function(data) {
+    var shasum = crypto.createHash('sha256').update(data);
+
+    return shasum.digest('base64');
+  },
+
   canonicalizeHeaders: function(request) {
     var key,
         headers = request.headers,
@@ -24,7 +30,7 @@ module.exports = {
 
   contentHash: function(request) {
     if (request.method.toLowerCase() === 'post') {
-      return 'post';
+      return this.base64Sha256(request.body);
     }
 
     return '';
