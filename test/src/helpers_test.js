@@ -18,4 +18,14 @@ describe('helpers', function() {
       }), 'foo:bar\tbaz:baz zoo\t');
     });
   });
+
+  describe('#contentHash', function() {
+    describe('when the request is a GET', function() {
+      it('returns an empty string', function () {
+        assert.equal(helpers.contentHash({
+          method: 'GET'
+        }), '');
+      });
+    });
+  });
 });

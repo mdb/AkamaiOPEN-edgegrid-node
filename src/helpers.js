@@ -22,6 +22,14 @@ module.exports = {
     return canonicalized.join('\t') + '\t';
   },
 
+  contentHash: function(request) {
+    if (request.method.toLowerCase() === 'post') {
+      return 'post';
+    }
+
+    return '';
+  },
+
   extend: function(a, b) {
     var key;
 
