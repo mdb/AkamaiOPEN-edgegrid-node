@@ -9,18 +9,6 @@ module.exports = {
     return encrypt.digest('base64');
   },
 
-  extend: function(a, b) {
-    var key;
-
-    for(key in b) {
-      if (!a.hasOwnProperty(key)) {
-        a[key] = b[key];
-      }
-    }
-
-    return a;
-  },
-
   canonicalizeHeaders: function(request) {
     var key,
         headers = request.headers,
@@ -31,5 +19,17 @@ module.exports = {
     }
 
     return canonicalized.join('\t') + '\t';
+  },
+
+  extend: function(a, b) {
+    var key;
+
+    for(key in b) {
+      if (!a.hasOwnProperty(key)) {
+        a[key] = b[key];
+      }
+    }
+
+    return a;
   }
 };
