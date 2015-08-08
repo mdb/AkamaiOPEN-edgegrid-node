@@ -1,4 +1,5 @@
-var crypto = require('crypto');
+var crypto = require('crypto'),
+    moment = require('moment');
 
 module.exports = {
   base64HmacSha256: function(data, key) {
@@ -31,5 +32,9 @@ module.exports = {
     }
 
     return a;
+  },
+
+  timestamp: function() {
+    return moment().utc().format('YYYYMMDDTHH:mm:ss+0000');
   }
 };
