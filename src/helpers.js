@@ -63,7 +63,7 @@ module.exports = {
           authHeader
         ].join('\t');
 
-    logger.info('data to sign: "' + data + '" \n');
+    logger.info('data to sign: ' + data + ' \n');
 
     return data;
   },
@@ -78,6 +78,20 @@ module.exports = {
     }
 
     return a;
+  },
+
+  signingKey: function(timestamp, clientSecret) {
+    var key = this.base64HmacSha256(timestamp, clientSecret);
+
+    logger.info('Signing key: ' + key + '\n');
+
+    return key;
+  },
+
+  signRequest: function(request, timestamp, clientSecret, authHeader) {
+    return 'signature=' + this.base64HmacSha256(
+      this.dataToSign(request, authHeader),
+      this.signingKey(timestamp, clientSecret));
   },
 
   timestamp: function() {
