@@ -22,7 +22,7 @@ describe('Signature Generation', function() {
         "path": "",
         "method": "GET"
       };
-      test_auth = auth.generate_auth(request, client_token, client_secret, access_token, base_url, false, false, nonce, timestamp);
+      test_auth = auth.generate_auth(request, client_token, client_secret, access_token, base_url, false, nonce, timestamp);
       assert.equal(test_auth.headers.Authorization, expected_header);
     });
   });
@@ -34,7 +34,7 @@ describe('Signature Generation', function() {
         "path": "testapi/v1/t1?p1=1&p2=2",
         "method": "GET"
       };
-      test_auth = auth.generate_auth(request, client_token, client_secret, access_token, base_url, false, false, nonce, timestamp);
+      test_auth = auth.generate_auth(request, client_token, client_secret, access_token, base_url, false, nonce, timestamp);
       assert.equal(test_auth.headers.Authorization, expected_header);
     });
   });
@@ -48,38 +48,7 @@ describe('Signature Generation', function() {
         "method": "POST",
         "body": data
       };
-      test_auth = auth.generate_auth(request, client_token, client_secret, access_token, base_url, false, false, nonce, timestamp);
-      assert.equal(test_auth.headers.Authorization, expected_header);
-    });
-  });
-
-  describe('POST too large', function() {
-    it('should return the expected string when the signing request is run.', function() {
-      var expected_header = "EG1-HMAC-SHA256 client_token=akab-client-token-xxx-xxxxxxxxxxxxxxxx;access_token=akab-access-token-xxx-xxxxxxxxxxxxxxxx;timestamp=20140321T19:34:21+0000;nonce=nonce-xx-xxxx-xxxx-xxxx-xxxxxxxxxxxx;signature=6Q6PiTipLae6n4GsSIDTCJ54bEbHUBp+4MUXrbQCBoY=";
-      var data = "ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd";
-
-      var request = {
-        //"url": "https://akaa-kax6r2oleojomqr3-q2i5ed3v35xfwe3j.luna.akamaiapis.net/billing-usage/v1/contractusagedata/contract/C-6JGLXF/6/2014",
-        "path": "testapi/v1/t3",
-        "method": "POST",
-        "body": data
-      };
-      test_auth = auth.generate_auth(request, client_token, client_secret, access_token, base_url, false, false, nonce, timestamp);
-      assert.equal(test_auth.headers.Authorization, expected_header);
-    });
-  });
-
-  describe('POST length equals max_body', function() {
-    it('should return the expected string when the signing request is run.', function() {
-      var expected_header = "EG1-HMAC-SHA256 client_token=akab-client-token-xxx-xxxxxxxxxxxxxxxx;access_token=akab-access-token-xxx-xxxxxxxxxxxxxxxx;timestamp=20140321T19:34:21+0000;nonce=nonce-xx-xxxx-xxxx-xxxx-xxxxxxxxxxxx;signature=6Q6PiTipLae6n4GsSIDTCJ54bEbHUBp+4MUXrbQCBoY=";
-      var data = "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd";
-      var request = {
-        //"url": "https://akaa-kax6r2oleojomqr3-q2i5ed3v35xfwe3j.luna.akamaiapis.net/billing-usage/v1/contractusagedata/contract/C-6JGLXF/6/2014",
-        "path": "testapi/v1/t3",
-        "method": "POST",
-        "body": data
-      };
-      test_auth = auth.generate_auth(request, client_token, client_secret, access_token, base_url, false, false, nonce, timestamp);
+      test_auth = auth.generate_auth(request, client_token, client_secret, access_token, base_url, false, nonce, timestamp);
       assert.equal(test_auth.headers.Authorization, expected_header);
     });
   });
@@ -94,7 +63,7 @@ describe('Signature Generation', function() {
         "method": "POST",
         "body": data
       };
-      test_auth = auth.generate_auth(request, client_token, client_secret, access_token, base_url, false, false, nonce, timestamp);
+      test_auth = auth.generate_auth(request, client_token, client_secret, access_token, base_url, false, nonce, timestamp);
       assert.equal(test_auth.headers.Authorization, expected_header);
 
     });
@@ -112,7 +81,7 @@ describe('Signature Generation', function() {
         "method": "GET",
         "headers": headers
       };
-      test_auth = auth.generate_auth(request, client_token, client_secret, access_token, base_url, ["X-Test1"], false, nonce, timestamp);
+      test_auth = auth.generate_auth(request, client_token, client_secret, access_token, base_url, ["X-Test1"], nonce, timestamp);
       assert.equal(test_auth.headers.Authorization, expected_header);
     });
   });
@@ -129,7 +98,7 @@ describe('Signature Generation', function() {
         "method": "GET",
         "headers": headers
       };
-      test_auth = auth.generate_auth(request, client_token, client_secret, access_token, base_url, ["X-Test1"], false, nonce, timestamp);
+      test_auth = auth.generate_auth(request, client_token, client_secret, access_token, base_url, ["X-Test1"], nonce, timestamp);
       assert.equal(test_auth.headers.Authorization, expected_header);
     });
   });
@@ -146,7 +115,7 @@ describe('Signature Generation', function() {
         "method": "GET",
         "headers": headers
       };
-      test_auth = auth.generate_auth(request, client_token, client_secret, access_token, base_url, ["X-Test1"], false, nonce, timestamp);
+      test_auth = auth.generate_auth(request, client_token, client_secret, access_token, base_url, ["X-Test1"], nonce, timestamp);
       assert.equal(test_auth.headers.Authorization, expected_header);
     });
   });
@@ -165,7 +134,7 @@ describe('Signature Generation', function() {
         "method": "GET",
         "headers": headers
       };
-      test_auth = auth.generate_auth(request, client_token, client_secret, access_token, base_url, ["X-Test1", "X-Test2", "X-Test3"], false, nonce, timestamp);
+      test_auth = auth.generate_auth(request, client_token, client_secret, access_token, base_url, ["X-Test1", "X-Test2", "X-Test3"], nonce, timestamp);
       assert.equal(test_auth.headers.Authorization, expected_header);
     });
   });
