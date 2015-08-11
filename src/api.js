@@ -21,8 +21,10 @@ EdgeGrid.prototype.auth = function(req) {
     headers: {
       'Content-Type': "application/json"
     },
-    body: {}
+    body: ''
   });
+
+  req.body = req.body && typeof req.body === 'object' ? JSON.stringify(req.body) : req.body;
 
   this.request = auth.generate_auth(req, this.config.client_token, this.config.client_secret, this.config.access_token, this.config.host);
 };

@@ -177,12 +177,27 @@ describe('Api', function() {
         assert.equal(this.api.request.method, 'POST');
       });
 
-      it('uses the specified body parsed as a key/value pair string', function() {
-        assert.equal(this.api.request.body, 'foo=%22bar%22&');
-      });
-
       it('extends the default request options with any others specified', function() {
         assert.equal(this.api.request.somethingArbitrary, 'someValue');
+      });
+
+      describe('when the body is an object', function() {
+        it('it sets the body to a JSON string', function() {
+          assert.equal(this.api.request.body, '{"foo":"bar"}');
+        });
+      });
+
+      describe('when the body is a string', function() {
+        it('it leaves the body as is', function() {
+          this.api.auth({
+            path: '/foo',
+            method: 'POST',
+            body: 'foo=bar',
+            somethingArbitrary: 'someValue'
+          });
+
+          assert.equal(this.api.request.body, 'foo=bar');
+        });
       });
     });
   });
