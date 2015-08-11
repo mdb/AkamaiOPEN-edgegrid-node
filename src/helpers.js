@@ -44,8 +44,12 @@ module.exports = {
   },
 
   contentHash: function(request) {
+    var body;
+
     if (request.method.toLowerCase() === 'post') {
-      return this.base64Sha256(request.body);
+      body = request.body && typeof request.body === 'object' ? JSON.stringify(request.body) : request.body;
+
+      return this.base64Sha256(body);
     }
 
     return '';

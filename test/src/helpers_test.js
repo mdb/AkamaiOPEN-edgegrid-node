@@ -105,6 +105,15 @@ describe('helpers', function() {
           method: 'POST'
         }), 'LCa0a2j/xo/5m0U8HTBBNBNCLXBkg7+g+YpeiGJm564=');
       });
+
+      describe('when the POST body is not a string', function() {
+        it('returns a base64 encoded sha256 of the JSON parsed body', function () {
+          assert.equal(helpers.contentHash({
+            body: { foo: 'bar' },
+            method: 'POST'
+          }), 'eji/gfOD9pQzrW6QDTWz4jhVk/dqe3q11DVbi6Qe4ks=');
+        });
+      });
     });
   });
 
