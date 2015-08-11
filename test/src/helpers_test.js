@@ -4,38 +4,38 @@ var assert = require('assert'),
 describe('helpers', function() {
   describe('#arrayIncludes', function() {
     it('returns true if a provided item appears in the provided array', function () {
-	    assert.equal(helpers.arrayIncludes(1, [2, 1, 3]), true);
+      assert.equal(helpers.arrayIncludes(1, [2, 1, 3]), true);
     });
 
     it('returns false if a provided item does not appear in the provided array', function () {
-	    assert.equal(helpers.arrayIncludes(8, [2, 1, 3]), false);
+      assert.equal(helpers.arrayIncludes(8, [2, 1, 3]), false);
     });
   });
 
   describe('#arrayIncludesString', function() {
     it('returns true if a provided item appears in the provided array', function () {
-	    assert.equal(helpers.arrayIncludesString('foo', ['foo', 'bar']), true);
+      assert.equal(helpers.arrayIncludesString('foo', ['foo', 'bar']), true);
     });
 
     it('returns true if a provided item appears in the provided array, independent of case', function () {
-	    assert.equal(helpers.arrayIncludesString('Foo', ['foo', 'bar']), true);
-	    assert.equal(helpers.arrayIncludesString('Foo', ['FOO', 'bar']), true);
+      assert.equal(helpers.arrayIncludesString('Foo', ['foo', 'bar']), true);
+      assert.equal(helpers.arrayIncludesString('Foo', ['FOO', 'bar']), true);
     });
 
     it('returns false if a provided item does not appear in the provided array', function () {
-	    assert.equal(helpers.arrayIncludesString('foo', ['bar', 'baz']), false);
+      assert.equal(helpers.arrayIncludesString('foo', ['bar', 'baz']), false);
     });
   });
 
   describe('#base64HmacSha256', function() {
     it('returns a base 64 encoded Hmac Sha256 of the message and key it is passed', function () {
-	    assert.equal(helpers.base64HmacSha256('message', 'secret'), 'i19IcCmVwVmMVz2x4hhmqbgl1KeU0WnXBgoDYFeWNgs=');
+      assert.equal(helpers.base64HmacSha256('message', 'secret'), 'i19IcCmVwVmMVz2x4hhmqbgl1KeU0WnXBgoDYFeWNgs=');
     });
   });
 
   describe('#base64Sha256', function() {
     it('returns a base 64 encoded Sha256 of the string it is passed', function () {
-	    assert.equal(helpers.base64Sha256('foo'), 'LCa0a2j/xo/5m0U8HTBBNBNCLXBkg7+g+YpeiGJm564=');
+      assert.equal(helpers.base64Sha256('foo'), 'LCa0a2j/xo/5m0U8HTBBNBNCLXBkg7+g+YpeiGJm564=');
     });
   });
 
