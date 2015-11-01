@@ -1,4 +1,17 @@
 module.exports = {
+  canonicalizeHeaders: function(request) {
+    var key,
+        headers = request.headers,
+        canonicalized = [];
+
+    for (key in headers) {
+      canonicalized.push(key.toLowerCase() + ':' + headers[key].trim().replace(/\s+/g, ' '));
+    }
+
+
+    return canonicalized.join('\t');
+  },
+
   extend: function(a, b) {
     var key;
 

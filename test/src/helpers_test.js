@@ -2,6 +2,17 @@ var assert = require('assert'),
     helpers = require('../../src/helpers');
 
 describe('helpers', function() {
+  describe('#canonicalizeHeaders', function() {
+    it('turns the headers into a tab separate string of key/value pairs', function() {
+      assert.equal(helpers.canonicalizeHeaders({
+        headers: {
+          Foo: 'bar',
+          Baz: '  baz\t zoo   '
+        }
+      }), 'foo:bar\tbaz:baz zoo');
+    });
+  });
+
   describe('#isRedirect', function() {
     describe('when it is passed a status code indicating a redirect', function() {
       it('returns true when it is passed a 300', function() {

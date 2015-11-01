@@ -6,6 +6,7 @@ var uuid = require('node-uuid'),
   crypto = require('crypto'),
   _ = require('underscore'),
   url = require('url'),
+  helpers = require('./helpers'),
   logger = require('./logger');
 
 var _max_body = null;
@@ -19,24 +20,6 @@ var base64_hmac_sha256 = function(data, key) {
   var encrypt = crypto.createHmac("sha256", key);
   encrypt.update(data);
   return encrypt.digest("base64");
-};
-
-var canonicalize_headers = function(request) {
-  var new_headers = [];
-
-  _.each(request.headers, function(value, header) {
-    if (value) {
-      header = header.toLowerCase();
-      if (typeof value == "string") {
-        value = value.trim();
-        value = value.replace(/\s+/g, ' ');
-      }
-
-      new_headers.push(header.toLowerCase() + ':' + value);
-    }
-  });
-
-  return new_headers.join("\t");
 };
 
 var make_content_hash = function(request) {
@@ -90,7 +73,7 @@ var make_data_to_sign = function(request, auth_header) {
     parsed_url.protocol.replace(":", ""),
     parsed_url.host,
     parsed_url.path,
-    canonicalize_headers(request),
+    helpers.canonicalizeHeaders(request),
     make_content_hash(request),
     auth_header
   ].join("\t").toString();
