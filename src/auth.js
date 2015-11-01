@@ -8,8 +8,7 @@ var uuid = require('node-uuid'),
   url = require('url'),
   logger = require('./logger');
 
-var _headers_to_sign = null,
-  _max_body = null;
+var _max_body = null;
 
 var createTimestamp = function() {
   var timestamp = moment().utc().format('YYYYMMDDTHH:mm:ss+0000');
@@ -23,10 +22,8 @@ var base64_hmac_sha256 = function(data, key) {
 };
 
 var canonicalize_headers = function(request) {
-
-  logger.debug("HEADERS TO SIGN", _headers_to_sign);
   var new_headers = [];
-  var cleansed_headers = {};
+
   _.each(request.headers, function(value, header) {
     if (value) {
       header = header.toLowerCase();
@@ -35,17 +32,11 @@ var canonicalize_headers = function(request) {
         value = value.replace(/\s+/g, ' ');
       }
 
-      cleansed_headers[header.toLowerCase()] = value;
+      new_headers.push(header.toLowerCase() + ':' + value);
     }
   });
 
-  _.each(_headers_to_sign, function(header) {
-    new_headers.push(header.toLowerCase() + ":" + cleansed_headers[header.toLowerCase()]);
-  });
-
-
-  new_headers = new_headers.join("\t");
-  return new_headers;
+  return new_headers.join("\t");
 };
 
 var make_content_hash = function(request) {
@@ -148,10 +139,9 @@ var make_auth_header = function(request, client_token, access_token, client_secr
 };
 
 module.exports = {
-  generate_auth: function(request, client_token, client_secret, access_token, host, headers_to_sign, max_body, guid, timestamp) {
+  generate_auth: function(request, client_token, client_secret, access_token, host, max_body, guid, timestamp) {
 
     _max_body = max_body || 2048;
-    _headers_to_sign = headers_to_sign || [];
 
     guid = guid || uuid.v4();
     timestamp = timestamp || createTimestamp();
