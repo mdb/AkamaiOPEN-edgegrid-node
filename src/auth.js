@@ -32,7 +32,7 @@ var makeAuthHeader = function(request, client_token, access_token, client_secret
 };
 
 module.exports = {
-  generate_auth: function(request, client_token, client_secret, access_token, host, max_body, guid, timestamp) {
+  generateAuth: function(request, client_token, client_secret, access_token, host, max_body, guid, timestamp) {
     _max_body = max_body || 2048;
     guid = guid || uuid.v4();
     timestamp = timestamp || helpers.createTimestamp();
