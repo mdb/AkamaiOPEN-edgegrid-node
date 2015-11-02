@@ -1,10 +1,15 @@
 var crypto = require('crypto'),
+    moment = require('moment'),
     _ = require('underscore'),
     url = require('url'),
     logger = require('./logger');
 
 module.exports = {
- base64Sha256: function(data) {
+  createTimestamp: function() {
+    return moment().utc().format('YYYYMMDDTHH:mm:ss+0000');
+  },
+
+  base64Sha256: function(data) {
     var shasum = crypto.createHash('sha256').update(data);
 
     return shasum.digest('base64');
@@ -115,5 +120,6 @@ module.exports = {
     return 'signature=' + this.base64HmacSha256(
       this.dataToSign(request, authHeader, maxBody),
       this.signingKey(timestamp, clientSecret));
-  }
+  },
+
 };
