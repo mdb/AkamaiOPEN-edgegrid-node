@@ -1,4 +1,14 @@
+var crypto = require('crypto');
+
 module.exports = {
+  base64HmacSha256: function(data, key) {
+    var encrypt = crypto.createHmac('sha256', key);
+
+    encrypt.update(data);
+
+    return encrypt.digest('base64');
+  },
+
   canonicalizeHeaders: function(request) {
     var key,
         headers = request.headers,

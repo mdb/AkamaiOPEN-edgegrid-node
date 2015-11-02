@@ -16,12 +16,6 @@ var createTimestamp = function() {
   return timestamp;
 };
 
-var base64_hmac_sha256 = function(data, key) {
-  var encrypt = crypto.createHmac("sha256", key);
-  encrypt.update(data);
-  return encrypt.digest("base64");
-};
-
 var make_content_hash = function(request) {
 
   var max_body = _max_body;
@@ -84,12 +78,12 @@ var make_data_to_sign = function(request, auth_header) {
 };
 
 var sign_request = function(request, timestamp, client_secret, auth_header) {
-  return base64_hmac_sha256(make_data_to_sign(request, auth_header), make_signing_key(timestamp, client_secret));
+  return helpers.base64HmacSha256(make_data_to_sign(request, auth_header), make_signing_key(timestamp, client_secret));
 };
 
 var make_signing_key = function(timestamp, client_secret) {
 
-  var signing_key = base64_hmac_sha256(timestamp, client_secret);
+  var signing_key = helpers.base64HmacSha256(timestamp, client_secret);
   logger.info("Signing key: " + signing_key + "\n");
   return signing_key;
 };

@@ -2,6 +2,12 @@ var assert = require('assert'),
     helpers = require('../../src/helpers');
 
 describe('helpers', function() {
+  describe('#base64HmacSha256', function() {
+    it('returns a base 64 encoded Hmac Sha256 of the message and key it is passed', function () {
+      assert.equal(helpers.base64HmacSha256('message', 'secret'), 'i19IcCmVwVmMVz2x4hhmqbgl1KeU0WnXBgoDYFeWNgs=');
+    });
+  });
+
   describe('#canonicalizeHeaders', function() {
     it('turns the headers into a tab separate string of key/value pairs', function() {
       assert.equal(helpers.canonicalizeHeaders({
