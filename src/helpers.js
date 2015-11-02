@@ -109,5 +109,11 @@ module.exports = {
     logger.info('Signing key: ' + key + '\n');
 
     return key;
+  },
+
+  signRequest: function(request, timestamp, clientSecret, authHeader, maxBody) {
+    return 'signature=' + this.base64HmacSha256(
+      this.dataToSign(request, authHeader, maxBody),
+      this.signingKey(timestamp, clientSecret));
   }
 };

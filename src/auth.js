@@ -14,10 +14,6 @@ var createTimestamp = function() {
   return timestamp;
 };
 
-var sign_request = function(request, timestamp, client_secret, auth_header) {
-  return helpers.base64HmacSha256(helpers.dataToSign(request, auth_header, _max_body), helpers.signingKey(timestamp, client_secret));
-};
-
 var make_auth_header = function(request, client_token, access_token, client_secret, timestamp, nonce) {
 
   var key_value_pairs = {
@@ -36,7 +32,7 @@ var make_auth_header = function(request, client_token, access_token, client_secr
 
   logger.info("Unsigned authorization header: " + auth_header + "\n");
 
-  var signed_auth_header = auth_header + "signature=" + sign_request(request, timestamp, client_secret, auth_header);
+  var signed_auth_header = auth_header + helpers.signRequest(request, timestamp, client_secret, auth_header, _max_body);
 
   logger.info("Signed authorization header: " + signed_auth_header + "\n");
 

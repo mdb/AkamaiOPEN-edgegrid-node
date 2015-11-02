@@ -60,4 +60,13 @@ describe('helpers', function() {
       assert.equal(helpers.signingKey('timestamp', 'secret'), 'ydMIxJIPPypuUya3KZGJ0qCRwkYcKrFn68Nyvpkf1WY=');
     });
   });
+
+  describe('#signRequest', function() {
+    it('returns the proper request signature', function() {
+      assert.equal(helpers.signRequest({
+        method: 'GET',
+        url: 'http://example.com/foo'
+      }, 'timestamp', 'secret', 'auth'), 'signature=JYgCcBLZV63pALRV/zsufws39UPzIJHjPRUa0Uayi/k=');
+    });
+  });
 });
