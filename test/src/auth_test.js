@@ -1,6 +1,6 @@
 var assert = require('assert'),
-    helpers = require('../src/helpers.js'),
-    auth = require('../src/auth.js'),
+    helpers = require('../../src/helpers.js'),
+    auth = require('../../src/auth.js'),
     baseUrl = 'https://akaa-baseurl-xxxxxxxxxxx-xxxxxxxxxxxxx.luna.akamaiapis.net/',
     accessToken = 'akab-access-token-xxx-xxxxxxxxxxxxxxxx',
     clientToken = 'akab-client-token-xxx-xxxxxxxxxxxxxxxx',
