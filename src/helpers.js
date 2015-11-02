@@ -4,6 +4,12 @@ var crypto = require('crypto'),
     logger = require('./logger');
 
 module.exports = {
+ base64Sha256: function(data) {
+    var shasum = crypto.createHash('sha256').update(data);
+
+    return shasum.digest('base64');
+  },
+
   base64HmacSha256: function(data, key) {
     var encrypt = crypto.createHmac('sha256', key);
 
@@ -89,9 +95,8 @@ module.exports = {
 
       logger.debug('PREPARED BODY', preparedBody);
 
-      var shasum = crypto.createHash('sha256');
-      shasum.update(preparedBody);
-      contentHash = shasum.digest("base64");
+      contentHash = this.base64Sha256(preparedBody);
+
       logger.info('Content hash is "' + contentHash + '"');
     }
 
