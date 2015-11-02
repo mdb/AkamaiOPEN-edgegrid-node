@@ -54,4 +54,10 @@ describe('helpers', function() {
       });
     });
   });
+
+  describe('#signingKey', function() {
+    it('returns the proper signing key', function() {
+      assert.equal(helpers.signingKey('timestamp', 'secret'), 'ydMIxJIPPypuUya3KZGJ0qCRwkYcKrFn68Nyvpkf1WY=');
+    });
+  });
 });

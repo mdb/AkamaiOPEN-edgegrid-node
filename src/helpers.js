@@ -101,5 +101,13 @@ module.exports = {
     }
 
     return contentHash;
+  },
+
+  signingKey: function(timestamp, clientSecret) {
+    var key = this.base64HmacSha256(timestamp, clientSecret);
+
+    logger.info('Signing key: ' + key + '\n');
+
+    return key;
   }
 };

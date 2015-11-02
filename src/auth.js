@@ -15,14 +15,7 @@ var createTimestamp = function() {
 };
 
 var sign_request = function(request, timestamp, client_secret, auth_header) {
-  return helpers.base64HmacSha256(helpers.dataToSign(request, auth_header, _max_body), make_signing_key(timestamp, client_secret));
-};
-
-var make_signing_key = function(timestamp, client_secret) {
-
-  var signing_key = helpers.base64HmacSha256(timestamp, client_secret);
-  logger.info("Signing key: " + signing_key + "\n");
-  return signing_key;
+  return helpers.base64HmacSha256(helpers.dataToSign(request, auth_header, _max_body), helpers.signingKey(timestamp, client_secret));
 };
 
 var make_auth_header = function(request, client_token, access_token, client_secret, timestamp, nonce) {
