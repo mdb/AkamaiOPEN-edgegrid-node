@@ -1,5 +1,4 @@
 var uuid = require('node-uuid'),
-    _ = require('underscore'),
     helpers = require('./helpers'),
     logger = require('./logger');
 
@@ -16,8 +15,8 @@ var makeAuthHeader = function(request, client_token, access_token, client_secret
       authHeader,
       signedAuthHeader;
 
-  _.each(keyValPairs, function(value, key) {
-    joinedPairs += key + '=' + value + ';';
+  Object.keys(keyValPairs).forEach(function(key) {
+    joinedPairs += key + '=' + keyValPairs[key] + ';';
   });
 
   authHeader = 'EG1-HMAC-SHA256 ' + joinedPairs;
