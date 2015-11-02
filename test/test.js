@@ -1,17 +1,12 @@
-// Instrument the tests
-var assert = require("assert");
-
-// Libraries
-var auth = require('../src/auth.js');
-
-var base_url = "https://akaa-baseurl-xxxxxxxxxxx-xxxxxxxxxxxxx.luna.akamaiapis.net/",
-  access_token = "akab-access-token-xxx-xxxxxxxxxxxxxxxx",
-  client_token = "akab-client-token-xxx-xxxxxxxxxxxxxxxx",
-  client_secret = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx=",
-  nonce = "nonce-xx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-  timestamp = "20140321T19:34:21+0000";
-
-var test_auth = null;
+var assert = require('assert'),
+    auth = require('../src/auth.js'),
+    baseUrl = 'https://akaa-baseurl-xxxxxxxxxxx-xxxxxxxxxxxxx.luna.akamaiapis.net/',
+    accessToken = 'akab-access-token-xxx-xxxxxxxxxxxxxxxx',
+    clientToken = 'akab-client-token-xxx-xxxxxxxxxxxxxxxx',
+    clientSecret = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx=',
+    nonce = 'nonce-xx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+    timestamp = '20140321T19:34:21+0000',
+    testAuth = null;
 
 describe('Signature Generation', function() {
   describe('simple GET', function() {
@@ -22,10 +17,11 @@ describe('Signature Generation', function() {
         "path": "",
         "method": "GET"
       };
-      test_auth = auth.generateAuth(request, client_token, client_secret, access_token, base_url, false, nonce, timestamp);
-      assert.equal(test_auth.headers.Authorization, expected_header);
+      testAuth = auth.generateAuth(request, clientToken, clientSecret, accessToken, baseUrl, false, nonce, timestamp);
+      assert.equal(testAuth.headers.Authorization, expected_header);
     });
   });
+
   describe('get with querystring', function() {
     it('should return the expected string when the signing request is run.', function() {
       var expected_header = "EG1-HMAC-SHA256 client_token=akab-client-token-xxx-xxxxxxxxxxxxxxxx;access_token=akab-access-token-xxx-xxxxxxxxxxxxxxxx;timestamp=20140321T19:34:21+0000;nonce=nonce-xx-xxxx-xxxx-xxxx-xxxxxxxxxxxx;signature=hKDH1UlnQySSHjvIcZpDMbQHihTQ0XyVAKZaApabdeA=";
@@ -34,10 +30,11 @@ describe('Signature Generation', function() {
         "path": "testapi/v1/t1?p1=1&p2=2",
         "method": "GET"
       };
-      test_auth = auth.generateAuth(request, client_token, client_secret, access_token, base_url, false, nonce, timestamp);
-      assert.equal(test_auth.headers.Authorization, expected_header);
+      testAuth = auth.generateAuth(request, clientToken, clientSecret, accessToken, baseUrl, false, nonce, timestamp);
+      assert.equal(testAuth.headers.Authorization, expected_header);
     });
   });
+
   describe('POST inside limit', function() {
     it('should return the expected string when the signing request is run.', function() {
       var expected_header = "EG1-HMAC-SHA256 client_token=akab-client-token-xxx-xxxxxxxxxxxxxxxx;access_token=akab-access-token-xxx-xxxxxxxxxxxxxxxx;timestamp=20140321T19:34:21+0000;nonce=nonce-xx-xxxx-xxxx-xxxx-xxxxxxxxxxxx;signature=hXm4iCxtpN22m4cbZb4lVLW5rhX8Ca82vCFqXzSTPe4=";
@@ -48,8 +45,8 @@ describe('Signature Generation', function() {
         "method": "POST",
         "body": data
       };
-      test_auth = auth.generateAuth(request, client_token, client_secret, access_token, base_url, false, nonce, timestamp);
-      assert.equal(test_auth.headers.Authorization, expected_header);
+      testAuth = auth.generateAuth(request, clientToken, clientSecret, accessToken, baseUrl, false, nonce, timestamp);
+      assert.equal(testAuth.headers.Authorization, expected_header);
     });
   });
 
@@ -64,8 +61,8 @@ describe('Signature Generation', function() {
         "method": "POST",
         "body": data
       };
-      test_auth = auth.generateAuth(request, client_token, client_secret, access_token, base_url, false, nonce, timestamp);
-      assert.equal(test_auth.headers.Authorization, expected_header);
+      testAuth = auth.generateAuth(request, clientToken, clientSecret, accessToken, baseUrl, false, nonce, timestamp);
+      assert.equal(testAuth.headers.Authorization, expected_header);
     });
   });
 
@@ -79,8 +76,8 @@ describe('Signature Generation', function() {
         "method": "POST",
         "body": data
       };
-      test_auth = auth.generateAuth(request, client_token, client_secret, access_token, base_url, false, nonce, timestamp);
-      assert.equal(test_auth.headers.Authorization, expected_header);
+      testAuth = auth.generateAuth(request, clientToken, clientSecret, accessToken, baseUrl, false, nonce, timestamp);
+      assert.equal(testAuth.headers.Authorization, expected_header);
     });
   });
 
@@ -94,9 +91,8 @@ describe('Signature Generation', function() {
         "method": "POST",
         "body": data
       };
-      test_auth = auth.generateAuth(request, client_token, client_secret, access_token, base_url, false, nonce, timestamp);
-      assert.equal(test_auth.headers.Authorization, expected_header);
-
+      testAuth = auth.generateAuth(request, clientToken, clientSecret, accessToken, baseUrl, false, nonce, timestamp);
+      assert.equal(testAuth.headers.Authorization, expected_header);
     });
   });
 
@@ -112,8 +108,8 @@ describe('Signature Generation', function() {
         "method": "GET",
         "headers": headers
       };
-      test_auth = auth.generateAuth(request, client_token, client_secret, access_token, base_url, false, nonce, timestamp);
-      assert.equal(test_auth.headers.Authorization, expected_header);
+      testAuth = auth.generateAuth(request, clientToken, clientSecret, accessToken, baseUrl, false, nonce, timestamp);
+      assert.equal(testAuth.headers.Authorization, expected_header);
     });
   });
 
@@ -129,8 +125,8 @@ describe('Signature Generation', function() {
         "method": "GET",
         "headers": headers
       };
-      test_auth = auth.generateAuth(request, client_token, client_secret, access_token, base_url, false, nonce, timestamp);
-      assert.equal(test_auth.headers.Authorization, expected_header);
+      testAuth = auth.generateAuth(request, clientToken, clientSecret, accessToken, baseUrl, false, nonce, timestamp);
+      assert.equal(testAuth.headers.Authorization, expected_header);
     });
   });
 
@@ -146,8 +142,8 @@ describe('Signature Generation', function() {
         "method": "GET",
         "headers": headers
       };
-      test_auth = auth.generateAuth(request, client_token, client_secret, access_token, base_url, false, nonce, timestamp);
-      assert.equal(test_auth.headers.Authorization, expected_header);
+      testAuth = auth.generateAuth(request, clientToken, clientSecret, accessToken, baseUrl, false, nonce, timestamp);
+      assert.equal(testAuth.headers.Authorization, expected_header);
     });
   });
 
@@ -161,8 +157,8 @@ describe('Signature Generation', function() {
         "method": "PUT",
         "body": data
       };
-      test_auth = auth.generateAuth(request, client_token, client_secret, access_token, base_url, false, nonce, timestamp);
-      assert.equal(test_auth.headers.Authorization, expected_header);
+      testAuth = auth.generateAuth(request, clientToken, clientSecret, accessToken, baseUrl, false, nonce, timestamp);
+      assert.equal(testAuth.headers.Authorization, expected_header);
     });
   });
 });
