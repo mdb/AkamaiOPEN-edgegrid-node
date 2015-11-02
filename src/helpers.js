@@ -119,6 +119,5 @@ module.exports = {
     return 'signature=' + this.base64HmacSha256(
       this.dataToSign(request, authHeader, maxBody),
       this.signingKey(timestamp, clientSecret));
-  },
-
+  }
 };
